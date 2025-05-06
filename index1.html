@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>September 1st Safari Birthday</title>
+    <style>
+        :root {
+            --maasai-red: #E31937;
+            --savannah-gold: #FFD700;
+            --midnight-blue: #003366;
+            --acacia-green: #7C9D2E;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background-color: rgba(0, 51, 102, 0.85);
+            border: 5px solid var(--maasai-red);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            box-shadow: 0 0 20px var(--maasai-red);
+        }
+        
+        h1 {
+            color: var(--savannah-gold);
+            font-size: 2.5rem;
+            text-shadow: 2px 2px var(--maasai-red);
+            font-family: 'Times New Roman', serif;
+            margin: 0.5rem 0;
+        }
+        
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        .maasai-border {
+            border-top: 10px dotted var(--maasai-red);
+            border-bottom: 10px dotted var(--savannah-gold);
+            padding: 1rem 0;
+        }
+        
+        .migration-trail {
+            background: linear-gradient(to right, 
+                var(--maasai-red), 
+                var(--savannah-gold), 
+                var(--acacia-green));
+            height: 10px;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        
+        .animal-icon {
+            font-size: 2rem;
+            margin: 0 10px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .btn {
+            background-color: var(--maasai-red);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            transform: scale(1.1);
+            background-color: var(--savannah-gold);
+            color: var(--midnight-blue);
+        }
+        
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-box {
+            background: var(--maasai-red);
+            padding: 8px;
+            border-radius: 5px;
+            min-width: 60px;
+        }
+        
+        @media (min-width: 480px) {
+            .countdown-box {
+                min-width: 70px;
+                padding: 10px;
+            }
+        }
+        
+        .countdown-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        @media (min-width: 480px) {
+            .countdown-value {
+                font-size: 2rem;
+            }
+        }
+        
+        #rsvp-form {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            margin: 10px auto;
+            border-radius: 5px;
+            border: none;
+            display: block;
+        }
+        
+        #confirmation {
+            display: none;
+            color: var(--savannah-gold);
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+        }
+        
+        #playlist {
+            margin: 20px auto;
+            max-width: 560px;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--midnight-blue);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Enhanced Gallery Styles */
+        .gallery-container {
+            display: none;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            aspect-ratio: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        .gallery-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .nav-btn {
+            background: var(--maasai-red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: var(--savannah-gold);
+            color: var(--midnight-blue);
+        }
+        
+        /* Music Player Styles */
+        .music-player {
+            background: rgba(0,0,0,0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .song-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .song-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s;
+        }
+        
+        .song-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+        
+        .song-info {
+            margin-top: 10px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        /* Accessibility improvements */
+        a, button {
+            outline: none;
+        }
+        
+        a:focus, button:focus {
+            outline: 2px solid var(--savannah-gold);
+            outline-offset: 2px;
+        }
+        
+        /* Reduced motion alternative */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="maasai-border">
+            <h1>SAFARI OF SUCCESS</h1>
+            <p>Celebrating <span id="birthday-name">Alex</span>'s September 1st Birthday!</p>
+            <div class="migration-trail"></div>
+        </div>
+        
+        <h2>Born in the Season of Lions & Leaders</h2>
+        
+        <p>
+            <span class="animal-icon" role="img" aria-label="Lion">🦁</span>
+            <span class="animal-icon" role="img" aria-label="Elephant">🐘</span>
+            <span class="animal-icon" role="img" aria-label="Giraffe">🦒</span>
+        </p>
+        
+        <div id="countdown">
+            <div class="countdown-box">
+                <div class="countdown-value" id="days">00</div>
+                <div>Days</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="hours">00</div>
+                <div>Hours</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="minutes">00</div>
+                <div>Minutes</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-value" id="seconds">00</div>
+                <div>Seconds</div>
+            </div>
+        </div>
+        
+        <p><strong>Date:</strong> September 1st, <span id="year">2024</span></p>
+        <p><strong>Location:</strong> <span id="location">Nairobi</span>, Kenya</p>
+        <p><strong>Time:</strong> 4:00 PM - 8:00 PM</p>
+        
+        <div class="migration-trail"></div>
+        
+        <h3>Activities Include:</h3>
+        <ul style="list-style-type: none; padding: 0;">
+            <li>🎯 Maasai Olympics Games</li>
+            <li>📚 Future Leader Pledge Wall</li>
+            <li>🎂 Great Migration Cake Cutting</li>
+            <li>🎶 Kenyan Beats Dance Party</li>
+        </ul>
+        
+        <button id="rsvp-btn" class="btn" aria-label="RSVP for the event">RSVP Now</button>
+        <button id="music-btn" class="btn" style="background-color: var(--acacia-green);" aria-label="Open music player">Play Kenyan Music</button>
+        <button id="gallery-btn" class="btn" style="background-color: var(--savannah-gold); color: var(--midnight-blue);" aria-label="View photo gallery">View Gallery</button>
+        
+        <div id="rsvp-form">
+            <form id="rsvp-form-element" action="https://formspree.io/f/xldbbbzo" method="POST">
+                <h3>Join the Pride!</h3>
+                <input type="text" name="name" id="guest-name" placeholder="Your Name" required aria-required="true">
+                <input type="email" name="email" id="guest-email" placeholder="Your Email" aria-label="Your email address">
+                <select name="attending" id="attending" required aria-required="true" aria-label="Attendance status">
+                    <option value="" disabled selected>Will you attend?</option>
+                    <option value="yes">Yes, can't wait!</option>
+                    <option value="no">Regretfully can't make it</option>
+                </select>
+                <textarea name="message" id="guest-message" placeholder="Your prediction for Alex's future career!" aria-label="Your message"></textarea>
+                <button type="submit" id="submit-rsvp" class="btn">Submit</button>
+            </form>
+        </div>
+        
+        <div id="confirmation" class="hidden" role="alert">
+            Asante sana! Your RSVP has been received. See you in the savannah!
+        </div>
+        
+        <!-- Enhanced Music Player Section -->
+        <div id="playlist" class="hidden">
+            <div class="music-player">
+                <h3>Kenyan Birthday Playlist</h3>
+                <p>Set the mood with these Kenyan hits!</p>
+                <div class="song-container" id="song-container">
+                    <!-- Songs will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enhanced Gallery Section -->
+        <div id="gallery" class="gallery-container hidden">
+            <div class="gallery-header">
+                <h3>Birthday Memories</h3>
+                <div class="gallery-nav">
+                    <button class="nav-btn" id="prev-btn" aria-label="Previous gallery page">❮</button>
+                    <button class="nav-btn" id="next-btn" aria-label="Next gallery page">❯</button>
+                </div>
+            </div>
+            <div class="gallery-grid" id="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551969014-7d2c4cddf0b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Safari birthday decorations with animal themes" class="gallery-img" loading="lazy">
+                    <div class="gallery-caption">Safari Theme Decor</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Maasai warriors performing cultural dance" class="gallery-img" loading="lazy">
+                    <div class="gallery-caption">Maasai Cultural Display</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Beautifully decorated Kenyan birthday cake with safari animals" class="gallery-img" loading="lazy">
+                    <div class="gallery-caption">Safari-Themed Cake</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Wildlife animals at a Kenyan national park" class="gallery-img" loading="lazy">
+                    <div class="gallery-caption">Wildlife Encounters</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="People celebrating at a birthday party" class="gallery-img" loading="lazy">
+                    <div class="gallery-caption">Birthday Celebrations</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Colorful birthday balloons decoration" class="gallery-img" loading="lazy">
+                    <div class="gallery-caption">Festive Decorations</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tooltip">
+            <div class="migration-trail"></div>
+            <p>Why September 1st is special?</p>
+            <span class="tooltiptext">September 1st babies are often the oldest in their class in Kenya, giving them an academic and social advantage!</span>
+        </div>
+        
+        <footer>
+            <p>"A child born on September 1st is destined to lead the pride!"</p>
+            <p>© <span id="current-year">2024</span> Safari Birthday Celebrations</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <script>
+        // Set birthday details
+        const birthdayPerson = 'Alex'; // Change to your name
+        const eventLocation = 'Nairobi'; // Change location
+        const eventYear = 2024; // Change year if needed
+        
+        document.getElementById('birthday-name').textContent = birthdayPerson;
+        document.getElementById('location').textContent = eventLocation;
+        const currentYear = new Date().getFullYear();
+        document.getElementById('year').textContent = eventYear;
+        document.getElementById('current-year').textContent = currentYear;
+        
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            let birthday = new Date(eventYear, 8, 1); // September is month 8 (0-indexed)
+            
+            // If birthday has passed this year, set for next year
+            if (now > birthday) {
+                birthday = new Date(eventYear + 1, 8, 1);
+            }
+            
+            const diff = birthday - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // Update every second
+            setTimeout(updateCountdown, 1000);
+        }
+        
+        // Initialize countdown
+        updateCountdown();
+        
+        // RSVP functionality
+        document.getElementById('rsvp-btn').addEventListener('click', function() {
+            document.getElementById('rsvp-form').style.display = 'block';
+            document.getElementById('playlist').classList.add('hidden');
+            document.getElementById('gallery').classList.add('hidden');
+            this.style.display = 'none';
+            document.getElementById('music-btn').style.display = 'inline-block';
+            document.getElementById('gallery-btn').style.display = 'inline-block';
+            document.getElementById('guest-name').focus();
+        });
+        
+        document.getElementById('rsvp-form-element').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            
+            // Basic email validation if provided
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Please enter a valid email address or leave the field blank');
+                return;
+            }
+            
+            if (name) {
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById('rsvp-form').style.display = 'none';
+                        const confirmation = document.getElementById('confirmation');
+                        confirmation.classList.remove('hidden');
+                        
+                        // Reset form
+                        this.reset();
+                        
+                        // Show RSVP button again after 5 seconds
+                        setTimeout(() => {
+                            document.getElementById('rsvp-btn').style.display = 'inline-block';
+                            confirmation.classList.add('hidden');
+                        }, 5000);
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was a problem submitting your RSVP. Please try again later.');
+                });
+            } else {
+                alert('Please at least enter your name!');
+            }
+        });
+        
+        // Enhanced Music Player
+        const kenyanSongs = [
+            { 
+                title: "Kanairo Dating", 
+                artist: "Mejja",
+                id: "0aFguTfxg0g",
+                genre: "Gengetone",
+                year: "2021"
+            },
+            {
+                title: "Sare",
+                artist: "Boutross ft. Femi One",
+                id: "Gm1bpmNKII0",
+                genre: "Gengetone",
+                year: "2022"
+            }
+        ];
+        
+        function renderMusicPlayer() {
+            const container = document.getElementById('song-container');
+            container.innerHTML = kenyanSongs.map(song => `
+                <div class="song-card">
+                    <div class="plyr__video-embed" id="player-${song.id}">
+                        <iframe 
+                            src="https://www.youtube.com/embed/${song.id}?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1" 
+                            allowfullscreen 
+                            allowtransparency 
+                            allow="autoplay"
+                            title="${song.title} by ${song.artist}"
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+                    <div class="song-info">
+                        <h4>${song.title}</h4>
+                        <p>${song.artist}</p>
+                        <small>${song.genre} • ${song.year}</small>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Initialize Plyr players only when needed
+            const players = Array.from(document.querySelectorAll('.plyr__video-embed')).map(
+                el => new Plyr(el, {
+                    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+                    ratio: '16:9'
+                })
+            );
+        }
+        
+        document.getElementById('music-btn').addEventListener('click', function() {
+            const playlist = document.getElementById('playlist');
+            const gallery = document.getElementById('gallery');
+            const rsvpForm = document.getElementById('rsvp-form');
+            
+            if (playlist.classList.contains('hidden')) {
+                // Only render player when first opened
+                if (document.getElementById('song-container').children.length === 0) {
+                    renderMusicPlayer();
+                }
+                playlist.classList.remove('hidden');
+                gallery.classList.add('hidden');
+                rsvpForm.style.display = 'none';
+                document.getElementById('rsvp-btn').style.display = 'inline-block';
+                this.textContent = 'Hide Music';
+            } else {
+                playlist.classList.add('hidden');
+                this.textContent = 'Play Kenyan Music';
+            }
+        });
+        
+        // Enhanced Gallery
+        let currentGalleryPage = 0;
+        const itemsPerPage = 6;
+        
+        function showGalleryPage(page) {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach((item, index) => {
+                item.style.display = (index >= page * itemsPerPage && index < (page + 1) * itemsPerPage) ? 'block' : 'none';
+            });
+        }
+        
+        function initGallery() {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach((item, index) => {
+                item.style.display = index < itemsPerPage ? 'block' : 'none';
+            });
+            currentGalleryPage = 0;
+        }
+        
+        document.getElementById('gallery-btn').addEventListener('click', function() {
+            const gallery = document.getElementById('gallery');
+            const playlist = document.getElementById('playlist');
+            const rsvpForm = document.getElementById('rsvp-form');
+            
+            if (gallery.classList.contains('hidden')) {
+                gallery.classList.remove('hidden');
+                playlist.classList.add('hidden');
+                rsvpForm.style.display = 'none';
+                document.getElementById('rsvp-btn').style.display = 'inline-block';
+                document.getElementById('music-btn').textContent = 'Play Kenyan Music';
+                this.textContent = 'Hide Gallery';
+                
+                // Initialize gallery if not already done
+                if (document.querySelectorAll('.gallery-item')[0].style.display === '') {
+                    initGallery();
+                }
+            } else {
+                gallery.classList.add('hidden');
+                this.textContent = 'View Gallery';
+            }
+        });
+        
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            const totalItems = document.querySelectorAll('.gallery-item').length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            currentGalleryPage = (currentGalleryPage - 1 + totalPages) % totalPages;
+            showGalleryPage(currentGalleryPage);
+        });
+        
+        document.getElementById('next-btn').addEventListener('click', function() {
+            const totalItems = document.querySelectorAll('.gallery-item').length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            currentGalleryPage = (currentGalleryPage + 1) % totalPages;
+            showGalleryPage(currentGalleryPage);
+        });
+        
+        // Animation for animal icons
+        const animals = document.querySelectorAll('.animal-icon');
+        animals.forEach((animal, index) => {
+            animal.style.animationDelay = `${index * 0.3}s`;
+        });
+        
+        // Reduced motion preference
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            animals.forEach(animal => {
+                animal.style.animation = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
